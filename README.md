@@ -1,6 +1,6 @@
-# flutter_product
+# flutter_standard
 
-A new Flutter project.
+A new Flutter Standard.
 
 ## Getting Started
 
