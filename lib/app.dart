@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_product/bottom_navigation.dart';
 import 'package:scoped_model/scoped_model.dart';
 // import 'package:flutter/rendering.dart';
-
 import './pages/auth.dart';
 import './pages/home.dart';
 import './scoped-models/main.dart';
-
 import 'blocs/stories_provider.dart';
 import 'blocs/comments_provider.dart';
 import 'pages/news_list.dart';
@@ -46,15 +44,24 @@ class _MyAppState extends State<MyApp> {
             debugShowCheckedModeBanner: false,
             title: 'sample!',
             // debugShowMaterialGrid: true,
+            
             theme: ThemeData(
-                brightness: Brightness.light,
-                primarySwatch: Colors.deepOrange,
-                accentColor: Colors.deepPurple,
-                buttonColor: Colors.deepPurple),
+              brightness: Brightness.light,
+              primarySwatch: Colors.deepOrange,
+              accentColor: Colors.deepPurple,
+              buttonColor: Colors.deepPurple,
+              //change_font when language changed
+          //     fontFamily: stateContainer.currentLanguage != null
+          // ? stateContainer.currentLanguage.code == "en"
+          //     ? Fonts.dinNextFont
+          //     : Fonts.khBoeungFont
+          // : null,
+            ),
             // home: AuthPage(),
             routes: {
               '/': (BuildContext context) =>
-                  !_isAuthenticated ? AuthPage() : HomePage(_model),
+                  // !_isAuthenticated ? AuthPage() : HomePage(_model),
+                  !_isAuthenticated ? AuthPage() : TabNavigator(),
             },
             onGenerateRoute: (RouteSettings settings) {
               if (!_isAuthenticated) {
@@ -119,5 +126,4 @@ class _MyAppState extends State<MyApp> {
       ),
     );
   }
-
 }

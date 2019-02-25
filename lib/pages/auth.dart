@@ -168,6 +168,7 @@ class _AuthPageState extends State<AuthPage> {
 
   Widget _buildAcceptSwitch() {
     return SwitchListTile(
+      activeColor: Constants.colors.primary,
       value: _formData['acceptTerms'],
       onChanged: (bool value) {
         setState(() {
@@ -219,11 +220,10 @@ class _AuthPageState extends State<AuthPage> {
           decoration: BoxDecoration(
             image: _buildBackgroundImage(),
           ),
-          padding: EdgeInsets.all(10.0),
           child: Center(
             child: SingleChildScrollView(
               child: Container(
-                width: targetWidth,
+                padding: EdgeInsets.all(10.0),
                 child: Form(
                   key: _formKey,
                   child: Column(
@@ -245,10 +245,7 @@ class _AuthPageState extends State<AuthPage> {
                           : Container(),
                       _buildAcceptSwitch(),
                       SizedBox(
-                        height: 10.0,
-                      ),
-                      SizedBox(
-                        height: 10.0,
+                        height: 20.0,
                       ),
                       ScopedModelDescendant<MainScopedModel>(
                         builder: (BuildContext context, Widget child,
@@ -297,6 +294,9 @@ class _AuthPageState extends State<AuthPage> {
           child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
+          SizedBox(
+            height: 10.0,
+          ),
           AppIcon(),
           SizedBox(
             height: 20.0,
@@ -369,6 +369,9 @@ class _AuthPageState extends State<AuthPage> {
                       style: TextStyle(color: Constants.colors.primary)),
                 ),
               ],
+            ),
+            SizedBox(
+            height: 10.0,
             ),
           ],
         ),
