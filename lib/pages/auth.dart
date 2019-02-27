@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_product/utils/localization/app_translations.dart';
 import '../utils/constants.dart';
 import '../utils/icon_font.dart';
 import '../widgets/app_icon.dart';

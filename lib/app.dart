@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_product/bottom_navigation.dart';
+import 'package:flutter_product/utils/constants.dart';
 import 'package:scoped_model/scoped_model.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import './utils/localization/constants.dart' show languages;
+import './utils/localization/app_localizations.dart' show FallbackCupertinoLocalisationsDelegate, MyLocalizationsDelegate, Translate;
+
+
+
 // import 'package:flutter/rendering.dart';
 import './pages/auth.dart';
 import './pages/home.dart';
@@ -11,6 +18,9 @@ import 'pages/news_list.dart';
 import 'pages/news_detail.dart';
 
 class MyApp extends StatefulWidget {
+  final Map<String, Map<String, String>> localizedValues;
+  MyApp(this.localizedValues);
+
   @override
   State<StatefulWidget> createState() {
     return _MyAppState();
@@ -20,9 +30,26 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   final MainScopedModel _model = MainScopedModel();
   bool _isAuthenticated = false;
+  String _locale = 'km';
+  onChangeLanguage() {
+    if (_locale == 'en') {
+      setState(() {
+        _locale = 'km';
+      });
+    } else {
+      setState(() {
+        _locale = 'en';
+      });
+    }
+  }
+
+  final routes = {
+    Constants.routes.root: (BuildContext context) => TabNavigator(),
+  };
 
   @override
   void initState() {
+    
     _model.autoAuthenticate();
     _model.userSubject.listen((bool isAuthenticated) {
       setState(() {
@@ -44,24 +71,25 @@ class _MyAppState extends State<MyApp> {
             debugShowCheckedModeBanner: false,
             title: 'sample!',
             // debugShowMaterialGrid: true,
-            
+
             theme: ThemeData(
               brightness: Brightness.light,
               primarySwatch: Colors.deepOrange,
               accentColor: Colors.deepPurple,
               buttonColor: Colors.deepPurple,
               //change_font when language changed
-          //     fontFamily: stateContainer.currentLanguage != null
-          // ? stateContainer.currentLanguage.code == "en"
-          //     ? Fonts.dinNextFont
-          //     : Fonts.khBoeungFont
-          // : null,
+              //     fontFamily: stateContainer.currentLanguage != null
+              // ? stateContainer.currentLanguage.code == "en"
+              //     ? Fonts.dinNextFont
+              //     : Fonts.khBoeungFont
+              // : null,
             ),
             // home: AuthPage(),
             routes: {
               '/': (BuildContext context) =>
                   // !_isAuthenticated ? AuthPage() : HomePage(_model),
-                  !_isAuthenticated ? AuthPage() : TabNavigator(),
+                  // !_isAuthenticated ? AuthPage() : TabNavigator(),
+                  TabNavigator()
             },
             onGenerateRoute: (RouteSettings settings) {
               if (!_isAuthenticated) {
@@ -121,9 +149,29 @@ class _MyAppState extends State<MyApp> {
                   builder: (BuildContext context) =>
                       !_isAuthenticated ? AuthPage() : HomePage(_model));
             },
+            locale: Locale(_locale),
+            localizationsDelegates: [
+              MyLocalizationsDelegate(widget.localizedValues),
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              const FallbackCupertinoLocalisationsDelegate(),
+            ],
+            supportedLocales: languages.map((language) => Locale(language, '')),
           ),
         ),
       ),
     );
   }
+
+  // onUnknownRoute(RouteSettings rs) {
+  //   return MaterialPageRoute(
+  //     builder: (context) => NotFoundPage(
+  //           appTitle: Constants.coming_soon,
+  //           icon: FontAwesomeIcons.solidSmile,
+  //           title: Constants.coming_soon,
+  //           message: "Under Development",
+  //           iconColor: Colors.green,
+  //         ),
+  //   );
+  // }
 }

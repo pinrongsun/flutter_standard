@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_product/utils/constants.dart';
 import 'package:flutter_product/utils/icon_font.dart';
+import 'package:flutter_product/utils/localization/app_localizations.dart';
 import 'package:flutter_product/widgets/appbar.dart';
 import 'package:flutter_product/widgets/alert_dialog.dart';
 import 'package:flutter_product/widgets/gradient_button.dart';
@@ -150,6 +151,11 @@ class _CommentPageState extends State<CommentPage> {
               ]).show();
             },
           ),
+          Text(Translate.of(context).hello),
+          RaisedButton(
+            onPressed: () => null,
+            child: Text('Change language'),
+          )
         ],
       ),
     );
