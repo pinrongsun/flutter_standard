@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_product/drawer.dart';
 import 'package:flutter_product/utils/constants.dart';
+import 'package:flutter_product/utils/localization/app_translations.dart';
 import 'package:flutter_product/widgets/appbar.dart';
 import './utils/icon_font.dart';
 import './pages/post.dart';
@@ -100,7 +101,7 @@ class _TabNavigatorState extends State<TabNavigator>
         key: postKey,
         activeIcon: Icon(FeatherIcons.edit),
         icon: Icon(FeatherIcons.edit),
-        title: 'Post',
+        title: "Post",
         color: Constants.colors.primary,
         vsync: this,
       ),

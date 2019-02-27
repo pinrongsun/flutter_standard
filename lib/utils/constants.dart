@@ -39,9 +39,9 @@ class FontSizes {
   double get heading1 =>  24.0;
   double get heading2 =>  22.0;
   double get title =>  20.0;
-  double get subtitle =>  18.0;
-  double get text =>  16.0;
-  double get caption =>  15.0;
+  double get subtitle =>  16.0;
+  double get text =>  15.0;
+  double get caption =>  14.0;
 }
 
 class Images {
