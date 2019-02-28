@@ -4,6 +4,7 @@ import 'package:flutter_product/utils/icon_font.dart';
 import 'package:flutter_product/utils/localization/app_localizations.dart';
 import 'package:flutter_product/widgets/appbar.dart';
 import 'package:flutter_product/widgets/alert_dialog.dart';
+import 'package:flutter_product/widgets/card.dart';
 import 'package:flutter_product/widgets/gradient_button.dart';
 import 'package:flutter_product/widgets/modal_sheet.dart';
 import 'package:flutter_product/widgets/snack_bar.dart';
@@ -111,53 +112,259 @@ class _CommentPageState extends State<CommentPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: <Widget>[
-          CustomAppBar(
-            title: 'Comment',
-            onPress: () => Scaffold.of(context).openDrawer(),
+    return Column(
+      children: <Widget>[
+        CustomAppBar(
+          title: 'Comment',
+          onPress: () => Scaffold.of(context).openDrawer(),
+        ),
+        Expanded(
+          child: ListView(
+            children: <Widget>[
+              Column(
+                children: <Widget>[
+                  Text("Comment Page"),
+                  GradientButton(
+                    onPressed: () {
+                      CustomSnackBar(
+                        context: context,
+                        type: "success",
+                        message: "ជោគជ័យ",
+                      ).show();
+                    },
+                    text: "Snack Bar",
+                  ),
+                  GradientButton(
+                    onPressed: () => _showModalSheets(context),
+                    text: "Modal Sheet",
+                  ),
+                  RaisedButton(
+                    child: Text("alert dialog yes no"),
+                    onPressed: () {
+                      CustomAlertDialog(context: context).showYesNo();
+                    },
+                  ),
+                  RaisedButton(
+                    child: Text("alert dialog"),
+                    onPressed: () {
+                      CustomAlertDialog(context: context, actions: [
+                        FlatButton(
+                          textColor: Constants.colors.primary,
+                          child: Text("Okay"),
+                          onPressed: () => Navigator.of(context).pop(),
+                        ),
+                      ]).show();
+                    },
+                  ),
+                  Text(Translate.of(context).hello),
+                  RaisedButton(
+                    onPressed: () => null,
+                    child: Text('Change language'),
+                  ),
+                  CustomCard(
+                    onPress: () => print('card press'),
+                    left: Image(
+                      image: AssetImage(Constants.images.food),
+                      fit: BoxFit.fill,
+                    ),
+                    content: Text(
+                        'Card information  informa tion infor mation using expanded wid'),
+                    right: Icon(FeatherIcons.alert_circle),
+                    height: 100,
+                  ),
+                  //this custom card should be placed under ui_elements or...
+                  CustomCard(
+                    edgeInsets: EdgeInsets.only(top: 5, bottom: 5),
+                    content: Column(
+                      children: <Widget>[
+                        Container(
+                          height: 50,
+                          // color: Constants.colors.danger,
+                          child: Row(
+                            children: <Widget>[
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Row(
+                                  children: <Widget>[
+                                    Padding(
+                                      padding: const EdgeInsets.only(right: 10),
+                                      child: Container(
+                                        width: 40.0,
+                                        height: 40.0,
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          image: DecorationImage(
+                                            fit: BoxFit.fill,
+                                            image: AssetImage(
+                                                Constants.images.avatar),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        Text('Phirum'),
+                                        Text('Developer')
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Expanded(
+                                child: Container(),
+                              ),
+                              Align(
+                                alignment: Alignment.topRight,
+                                child: Icon(FeatherIcons.more_horizontal),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 5, bottom: 10),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text('statusMesage'),
+                          ),
+                        ),
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(5.0),
+                          child: Image(
+                            image: AssetImage(Constants.images.food),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 5, bottom: 10),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text('picture description'),
+                          ),
+                        ),
+                        Row(
+                          children: <Widget>[
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: Row(
+                                children: <Widget>[
+                                  Icon(
+                                    FeatherIcons.package,
+                                    size: 16,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 5),
+                                    child: Text('496'),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Expanded(
+                              child: Container(),
+                            ),
+                            Align(
+                              alignment: Alignment.centerRight,
+                              child: Row(
+                                children: <Widget>[
+                                  Text('52 comments'),
+                                  Text('-'),
+                                  Text('18 shared'),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        Divider(),
+                        Expanded(
+                          child: Align(
+                            alignment: Alignment.bottomCenter,
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 20, right: 20),
+                              child: Container(
+                                height: 40,
+                                // color: Constants.colors.info,
+                                child: Row(
+                                  children: <Widget>[
+                                    Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Row(
+                                        children: <Widget>[
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(right: 5),
+                                            child: Icon(
+                                              FeatherIcons.thumbs_up,
+                                              size: 20,
+                                            ),
+                                          ),
+                                          Text('Like'),
+                                        ],
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: Align(
+                                        alignment: Alignment.center,
+                                        child: Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: <Widget>[
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  right: 5),
+                                              child: Icon(
+                                                FeatherIcons.message_square,
+                                                size: 20,
+                                              ),
+                                            ),
+                                            Text('Comment'),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    Align(
+                                      alignment: Alignment.centerRight,
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(right: 5),
+                                            child: Icon(
+                                              FeatherIcons.share,
+                                              size: 20,
+                                            ),
+                                          ),
+                                          Text('Share'),
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    height: 440,
+                  ),
+                  SizedBox(
+                    height: 20,
+                  )
+                ],
+              ),
+            ],
           ),
-          Text("Comment Page"),
-          GradientButton(
-            onPressed: () {
-              CustomSnackBar(
-                context: context,
-                type: "success",
-                message: "ជោគជ័យ",
-              ).show();
-            },
-            text: "Snack Bar",
-          ),
-          GradientButton(
-            onPressed: () => _showModalSheets(context),
-            text: "Modal Sheet",
-          ),
-          RaisedButton(
-            child: Text("alert dialog yes no"),
-            onPressed: () {
-              CustomAlertDialog(context: context).showYesNo();
-            },
-          ),
-          RaisedButton(
-            child: Text("alert dialog"),
-            onPressed: () {
-              CustomAlertDialog(context: context, actions: [
-                FlatButton(
-                  textColor: Constants.colors.primary,
-                  child: Text("Okay"),
-                  onPressed: () => Navigator.of(context).pop(),
-                ),
-              ]).show();
-            },
-          ),
-          Text(Translate.of(context).hello),
-          RaisedButton(
-            onPressed: () => null,
-            child: Text('Change language'),
-          )
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
