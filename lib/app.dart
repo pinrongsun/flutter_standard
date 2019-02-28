@@ -4,9 +4,11 @@ import 'package:flutter_product/utils/constants.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import './utils/localization/constants.dart' show languages;
-import './utils/localization/app_localizations.dart' show FallbackCupertinoLocalisationsDelegate, MyLocalizationsDelegate, Translate;
-
-
+import './utils/localization/app_localizations.dart'
+    show
+        FallbackCupertinoLocalisationsDelegate,
+        MyLocalizationsDelegate,
+        Translate;
 
 // import 'package:flutter/rendering.dart';
 import './pages/auth.dart';
@@ -49,7 +51,6 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
-    
     _model.autoAuthenticate();
     _model.userSubject.listen((bool isAuthenticated) {
       setState(() {
@@ -73,6 +74,7 @@ class _MyAppState extends State<MyApp> {
             // debugShowMaterialGrid: true,
 
             theme: ThemeData(
+              splashFactory: InkRipple.splashFactory,
               brightness: Brightness.light,
               primarySwatch: Colors.deepOrange,
               accentColor: Colors.deepPurple,
