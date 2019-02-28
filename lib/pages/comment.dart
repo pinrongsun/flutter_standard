@@ -8,6 +8,8 @@ import 'package:flutter_product/widgets/card.dart';
 import 'package:flutter_product/widgets/gradient_button.dart';
 import 'package:flutter_product/widgets/modal_sheet.dart';
 import 'package:flutter_product/widgets/snack_bar.dart';
+import 'package:flutter_product/widgets/text_input.dart';
+import 'package:flutter_product/widgets/touchable.dart';
 
 class CommentPage extends StatefulWidget {
   @override
@@ -219,7 +221,15 @@ class _CommentPageState extends State<CommentPage> {
                               ),
                               Align(
                                 alignment: Alignment.topRight,
-                                child: Icon(FeatherIcons.more_horizontal),
+                                child: Container(
+                                  width: 35,
+                                  height: 35,
+                                  child: TouchableWithFeedback(
+                                    borderRadius: 20,
+                                    onTap: () => null,
+                                    child: Icon(FeatherIcons.more_horizontal),
+                                  ),
+                                ),
                               ),
                             ],
                           ),
@@ -266,12 +276,14 @@ class _CommentPageState extends State<CommentPage> {
                             ),
                             Align(
                               alignment: Alignment.centerRight,
-                              child: Row(
-                                children: <Widget>[
-                                  Text('52 comments'),
-                                  Text('-'),
-                                  Text('18 shared'),
-                                ],
+                              child: Container(
+                                child: Row(
+                                  children: <Widget>[
+                                    Text('52 comments'),
+                                    Text('-'),
+                                    Text('18 shared'),
+                                  ],
+                                ),
                               ),
                             ),
                           ],
@@ -287,63 +299,49 @@ class _CommentPageState extends State<CommentPage> {
                                 height: 40,
                                 // color: Constants.colors.info,
                                 child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
                                     Align(
                                       alignment: Alignment.centerLeft,
-                                      child: Row(
-                                        children: <Widget>[
-                                          Padding(
-                                            padding:
-                                                const EdgeInsets.only(right: 5),
-                                            child: Icon(
-                                              FeatherIcons.thumbs_up,
-                                              size: 20,
-                                            ),
-                                          ),
-                                          Text('Like'),
-                                        ],
+                                      child: Touchable(
+                                        icon: Icon(
+                                          FeatherIcons.thumbs_up,
+                                          size: 20,
+                                        ),
+                                        child: Text(
+                                          'Like',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold),
+                                        ),
                                       ),
                                     ),
-                                    Expanded(
-                                      child: Align(
-                                        alignment: Alignment.center,
-                                        child: Row(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: <Widget>[
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  right: 5),
-                                              child: Icon(
-                                                FeatherIcons.message_square,
-                                                size: 20,
-                                              ),
-                                            ),
-                                            Text('Comment'),
-                                          ],
+                                    Align(
+                                      alignment: Alignment.center,
+                                      child: Touchable(
+                                        icon: Icon(
+                                          FeatherIcons.message_square,
+                                          size: 20,
+                                        ),
+                                        child: Text(
+                                          'Comment',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold),
                                         ),
                                       ),
                                     ),
                                     Align(
                                       alignment: Alignment.centerRight,
-                                      child: Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: <Widget>[
-                                          Padding(
-                                            padding:
-                                                const EdgeInsets.only(right: 5),
-                                            child: Icon(
-                                              FeatherIcons.share,
-                                              size: 20,
-                                            ),
-                                          ),
-                                          Text('Share'),
-                                        ],
+                                      child: Touchable(
+                                        icon: Icon(
+                                          FeatherIcons.share,
+                                          size: 20,
+                                        ),
+                                        child: Text(
+                                          'Share',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold),
+                                        ),
                                       ),
                                     )
                                   ],
@@ -354,7 +352,11 @@ class _CommentPageState extends State<CommentPage> {
                         ),
                       ],
                     ),
-                    height: 440,
+                    height: 450,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(40.0),
+                    child: CustomTextInput(iconName: FeatherIcons.mail, hint: "Email",),
                   ),
                   SizedBox(
                     height: 20,

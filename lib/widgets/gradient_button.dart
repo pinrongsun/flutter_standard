@@ -17,7 +17,7 @@ class GradientButton extends StatelessWidget {
       clipBehavior: Clip.antiAlias,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.all(
-          Radius.circular(round ? 50.0 : 10.0),
+          Radius.circular(round ? 50.0 : 8.0),
         ),
       ),
       child: InkWell(
