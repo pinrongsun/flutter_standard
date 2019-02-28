@@ -4,7 +4,7 @@ import 'package:flutter_product/utils/icon_font.dart';
 
 class CustomSnackBar {
   BuildContext context;
-  String content;
+  String message;
   String type;
   Color backgroundColor;
   Function action;
@@ -12,7 +12,7 @@ class CustomSnackBar {
   String actionLabel = "dismiss";
   CustomSnackBar(
       {@required this.context,
-      this.content = "content",
+      this.message = "message",
       this.type = "default",
       this.backgroundColor = const Color(0xFF196ed2),
       this.action,
@@ -68,7 +68,7 @@ class CustomSnackBar {
             children: <Widget>[
               Padding(padding: EdgeInsets.only(bottom: 5), child: _icon()),
               Text(
-                content,
+                message,
                 style: TextStyle(fontSize: Constants.fontSizes.subtitle),
               ),
             ],
@@ -83,7 +83,7 @@ class CustomSnackBar {
   // showWithAction() {
   //   Scaffold.of(context).showSnackBar(
   //     SnackBar(
-  //       content: Text(content),
+  //       message: Text(message),
   //       backgroundColor: _backgroundColor(),
   //       duration: Duration(seconds: duration),
   //       action: SnackBarAction(

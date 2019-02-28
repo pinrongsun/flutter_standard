@@ -28,7 +28,7 @@ class _CommentPageState extends State<CommentPage> {
               CustomSnackBar(
                       context: context,
                       type: "warning",
-                      content: "warning message")
+                      message: "warning message")
                   .show();
             },
             leading: new Icon(
@@ -124,7 +124,7 @@ class _CommentPageState extends State<CommentPage> {
               CustomSnackBar(
                 context: context,
                 type: "success",
-                content: "ជោគជ័យ",
+                message: "ជោគជ័យ",
               ).show();
             },
             text: "Snack Bar",
