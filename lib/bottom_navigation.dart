@@ -1,6 +1,7 @@
 //packages
 import 'package:flutter/material.dart';
 import 'package:flutter_product/drawer.dart';
+import 'package:flutter_product/pages/home.dart';
 import 'package:flutter_product/utils/constants.dart';
 import 'package:flutter_product/utils/localization/app_translations.dart';
 import 'package:flutter_product/widgets/appbar.dart';
@@ -91,17 +92,17 @@ class _TabNavigatorState extends State<TabNavigator>
   BottomNavigationBarType _type = BottomNavigationBarType.fixed;
   List<NavigationIconView> _navigationViews;
   int _tab = 0;
-  final String postKey = "post";
+  final String homeKey = "home";
   final String commentKey = "comment";
   final String messageKey = "message";
 
   List<NavigationIconView> __navigationViews() {
     _navigationViews = [
       NavigationIconView(
-        key: postKey,
-        activeIcon: Icon(FeatherIcons.edit),
-        icon: Icon(FeatherIcons.edit),
-        title: "Post",
+        key: homeKey,
+        activeIcon: Icon(FeatherIcons.home),
+        icon: Icon(FeatherIcons.home),
+        title: "Home",
         color: Constants.colors.primary,
         vsync: this,
       ),
@@ -178,7 +179,7 @@ class _TabNavigatorState extends State<TabNavigator>
         children: <Widget>[
           Offstage(
             offstage: _tab != 0,
-            child: PostPage(),
+            child: HomePage(),
           ),
           Offstage(
             offstage: _tab != 1,

@@ -27,6 +27,268 @@ class _AuthPageState extends State<AuthPage> {
   final TextEditingController _passwordTextController = TextEditingController();
   AuthMode _authMode = AuthMode.Login;
 
+  void _submitForm(Function authenticate) async {
+    if (!_formKey.currentState.validate() || !_formData['acceptTerms']) {
+      return;
+    }
+    _formKey.currentState.save();
+    Map<String, dynamic> successInformation;
+    successInformation = await authenticate(
+        _formData['email'], _formData['password'], _authMode);
+    if (successInformation['success']) {
+      // Navigator.pushReplacementNamed(context, '/');
+    } else {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('An Error Occurred!'),
+            content: Text(successInformation['message']),
+            actions: <Widget>[
+              FlatButton(
+                child: Text('Okay'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              )
+            ],
+          );
+        },
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final double deviceWidth = MediaQuery.of(context).size.width;
+    final double targetWidth = deviceWidth > 550.0 ? 500.0 : deviceWidth * 0.95;
+    return Scaffold(
+      body: SafeArea(
+        child: Container(
+          decoration: BoxDecoration(
+            image: _buildBackgroundImage(),
+          ),
+          child: Center(
+            child: SingleChildScrollView(
+              child: Container(
+                padding: EdgeInsets.only(left: 35, right: 35),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    children: <Widget>[
+                      Padding(
+                        child: Text(
+                          'Sign In',
+                          style:
+                              TextStyle(fontSize: Constants.fontSizes.heading1),
+                        ),
+                        padding: EdgeInsets.only(bottom: 50),
+                      ),
+                      _buildSocialLogin(),
+                      Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Text(
+                          '- OR -',
+                          style:
+                              TextStyle(fontSize: Constants.fontSizes.subtitle),
+                        ),
+                      ),
+                      Material(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.white,
+                        elevation: 1.6,
+                        shadowColor: Colors.black38,
+                        child: Column(
+                          children: <Widget>[
+                            Padding(
+                                padding: const EdgeInsets.only(
+                                    top: 5, bottom: 5, right: 15, left: 15),
+                                child: _buildEmailTextField()),
+                            Divider(
+                              height: 1,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  top: 5, bottom: 5, right: 15, left: 15),
+                              child: _buildPasswordTextField(),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 15, bottom: 15),
+                        child: _buildRememberMe(),
+                      ),
+                      _authMode == AuthMode.SignUp
+                          ? _buildPasswordConfirmTextField()
+                          : Container(),
+                      // _buildAcceptSwitch(),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 15),
+                        child: _buildLoginFooter(context),
+                      ),
+                      ScopedModelDescendant<MainScopedModel>(
+                        builder: (BuildContext context, Widget child,
+                            MainScopedModel model) {
+                          return model.isLoading
+                              ? CircularProgressIndicator()
+                              : Container(
+                                  padding: EdgeInsets.symmetric(
+                                    vertical: 0.0,
+                                  ),
+                                  width: double.infinity,
+                                  child: GradientButton(
+                                    onPressed: () {
+                                      _submitForm(model.authenticate);
+                                    },
+                                    text: _authMode == AuthMode.Login
+                                        ? 'Sign In'
+                                        : 'Sign Up',
+                                  ),
+                                );
+
+                          /*RaisedButton(
+                                  textColor: Colors.white,
+                                  child: Text(_authMode == AuthMode.Login
+                                      ? 'LOGIN'
+                                      : 'SIGNUP'),
+                                  onPressed: () =>
+                                      _submitForm(model.authenticate),
+                                );*/
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSocialLogin() => Column(
+        children: <Widget>[
+          Text(
+            "Sign In with your social account",
+            style: TextStyle(fontSize: Constants.fontSizes.title),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 10),
+            child: Material(
+              borderRadius: BorderRadius.circular(10),
+              color: Colors.white,
+              elevation: 1.6,
+              shadowColor: Colors.black38,
+              child: Column(
+                children: <Widget>[
+                  InkWell(
+                    onTap: () => null,
+                    borderRadius: BorderRadius.circular(10),
+                    child: Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Table(
+                        defaultVerticalAlignment:
+                            TableCellVerticalAlignment.middle,
+                        columnWidths: {
+                          0: FractionColumnWidth(.15),
+                          1: FractionColumnWidth(.15),
+                          3: FractionColumnWidth(.15),
+                        },
+                        children: [
+                          TableRow(
+                            children: [
+                              Container(),
+                              Image(
+                                height: 30,
+                                image: AssetImage(Constants.images.facebook),
+                              ),
+                              Text(
+                                'Sign In with Facebook',
+                                style: TextStyle(
+                                    fontSize: Constants.fontSizes.subtitle),
+                              ),
+                              Container(),
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  Divider(height: 1),
+                  InkWell(
+                    onTap: () => null,
+                    borderRadius: BorderRadius.circular(10),
+                    child: Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Table(
+                        defaultVerticalAlignment:
+                            TableCellVerticalAlignment.middle,
+                        columnWidths: {
+                          0: FractionColumnWidth(.15),
+                          1: FractionColumnWidth(.15),
+                          3: FractionColumnWidth(.15),
+                        },
+                        children: [
+                          TableRow(
+                            children: [
+                              Container(),
+                              Image(
+                                height: 30,
+                                image: AssetImage(Constants.images.google),
+                              ),
+                              Text(
+                                'Sign In with Google',
+                                style: TextStyle(
+                                    fontSize: Constants.fontSizes.subtitle),
+                              ),
+                              Container(),
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 20,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      );
+
+  Widget loginHeader() => Container(
+        // margin: new EdgeInsets.only(top: 70.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            SizedBox(
+              height: 10.0,
+            ),
+            // AppIcon(),
+            SizedBox(
+              height: 20.0,
+            ),
+            Text(
+              "Welcome to ${Constants.appName}",
+              style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  color: Constants.colors.primary,
+                  fontSize: 20.0),
+            ),
+            SizedBox(
+              height: 10.0,
+            ),
+            Text(
+              "Sign in to access your account.",
+              style: TextStyle(color: Colors.grey),
+            ),
+          ],
+        ),
+      );
   DecorationImage _buildBackgroundImage() {
     return DecorationImage(
       fit: BoxFit.cover,
@@ -38,28 +300,17 @@ class _AuthPageState extends State<AuthPage> {
 
   Widget _buildEmailTextField() {
     return Container(
-      decoration: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(
-              color: Colors.grey, width: 0.7, style: BorderStyle.solid),
-        ),
-      ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          new Expanded(
+          Expanded(
             child: TextFormField(
               textAlign: TextAlign.left,
-              style: TextStyle(color: Constants.colors.primary),
               decoration: InputDecoration(
                 border: InputBorder.none,
                 hintText: 'Email',
-                labelStyle: TextStyle(color: Constants.colors.primary),
-                icon: Icon(
-                  FeatherIcons.mail,
-                  size: 20.0,
-                ),
+                labelStyle: TextStyle(color: Colors.black),
               ),
               keyboardType: TextInputType.emailAddress,
               validator: (String value) {
@@ -77,38 +328,20 @@ class _AuthPageState extends State<AuthPage> {
         ],
       ),
     );
-
-    /*
-    TextFormField(
-      decoration: InputDecoration(
-          labelText: 'E-Mail', filled: true, fillColor: Colors.white),
-
-    );*/
   }
 
   Widget _buildPasswordTextField() {
     return Container(
-      decoration: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(
-              color: Colors.grey, width: 0.7, style: BorderStyle.solid),
-        ),
-      ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           new Expanded(
             child: TextFormField(
-              style: TextStyle(color: Constants.colors.primary),
               textAlign: TextAlign.left,
               decoration: InputDecoration(
                 border: InputBorder.none,
                 hintText: 'Password',
-                icon: Icon(
-                  FeatherIcons.lock,
-                  size: 20.0,
-                ),
               ),
               obscureText: true,
               controller: _passwordTextController,
@@ -167,6 +400,29 @@ class _AuthPageState extends State<AuthPage> {
     );
   }
 
+  Widget _buildRememberMe() => Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Row(
+              children: <Widget>[
+                Checkbox(
+                  value: true,
+                  onChanged: null,
+                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                ),
+                Text('Remember me'),
+              ],
+            ),
+          ),
+          Align(
+            alignment: Alignment.centerRight,
+            child: Text('Forgot password'),
+          ),
+        ],
+      );
+
   Widget _buildAcceptSwitch() {
     return SwitchListTile(
       activeColor: Constants.colors.primary,
@@ -180,199 +436,49 @@ class _AuthPageState extends State<AuthPage> {
     );
   }
 
-  void _submitForm(Function authenticate) async {
-    if (!_formKey.currentState.validate() || !_formData['acceptTerms']) {
-      return;
-    }
-    _formKey.currentState.save();
-    Map<String, dynamic> successInformation;
-    successInformation = await authenticate(
-        _formData['email'], _formData['password'], _authMode);
-    if (successInformation['success']) {
-      // Navigator.pushReplacementNamed(context, '/');
-    } else {
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text('An Error Occurred!'),
-            content: Text(successInformation['message']),
-            actions: <Widget>[
-              FlatButton(
-                child: Text('Okay'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              )
-            ],
-          );
-        },
-      );
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final double deviceWidth = MediaQuery.of(context).size.width;
-    final double targetWidth = deviceWidth > 550.0 ? 500.0 : deviceWidth * 0.95;
-    return Scaffold(
-      body: SafeArea(
-        child: Container(
-          decoration: BoxDecoration(
-            image: _buildBackgroundImage(),
-          ),
-          child: Center(
-            child: SingleChildScrollView(
-              child: Container(
-                padding: EdgeInsets.all(10.0),
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    children: <Widget>[
-                      loginHeader(),
-                      SizedBox(
-                        height: 30.0,
-                      ),
-                      _buildEmailTextField(),
-                      SizedBox(
-                        height: 10.0,
-                      ),
-                      _buildPasswordTextField(),
-                      SizedBox(
-                        height: 10.0,
-                      ),
-                      _authMode == AuthMode.SignUp
-                          ? _buildPasswordConfirmTextField()
-                          : Container(),
-                      _buildAcceptSwitch(),
-                      SizedBox(
-                        height: 20.0,
-                      ),
-                      ScopedModelDescendant<MainScopedModel>(
-                        builder: (BuildContext context, Widget child,
-                            MainScopedModel model) {
-                          return model.isLoading
-                              ? CircularProgressIndicator()
-                              : Container(
-                                  padding: EdgeInsets.symmetric(
-                                    vertical: 0.0,
-                                  ),
-                                  width: double.infinity,
-                                  child: GradientButton(
-                                    onPressed: () {
-                                      _submitForm(model.authenticate);
-                                    },
-                                    text: _authMode == AuthMode.Login
-                                        ? 'Sign In'
-                                        : 'Sign Up',
-                                  ),
-                                );
-
-                          /*RaisedButton(
-                                  textColor: Colors.white,
-                                  child: Text(_authMode == AuthMode.Login
-                                      ? 'LOGIN'
-                                      : 'SIGNUP'),
-                                  onPressed: () =>
-                                      _submitForm(model.authenticate),
-                                );*/
-                        },
-                      ),
-                      loginFooter(context),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget loginHeader() => Container(
-          // margin: new EdgeInsets.only(top: 70.0),
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          SizedBox(
-            height: 10.0,
-          ),
-          AppIcon(),
-          SizedBox(
-            height: 20.0,
-          ),
-          Text(
-            "Welcome to ${Constants.appName}",
-            style: TextStyle(
-                fontWeight: FontWeight.w700,
-                color: Constants.colors.primary,
-                fontSize: 20.0),
-          ),
-          SizedBox(
-            height: 10.0,
-          ),
-          Text(
-            "Sign in to access your account.",
-            style: TextStyle(color: Colors.grey),
-          ),
-        ],
-      ));
-
-  loginFooter(context) => Container(
+  Widget _buildLoginFooter(context) => Container(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            SizedBox(height: 30.0),
-            new GestureDetector(
-              onTap: () {
-                //  Navigator.pushNamed(context, Routes.resetPassword);
-              },
-              child: new Text(
-                "Forgot Password?",
-                textAlign: TextAlign.center,
-              ),
-            ),
-            SizedBox(height: 10.0),
-            _authMode == AuthMode.Login ?
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text("Don't have an account? "),
-                new GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      _authMode = _authMode == AuthMode.Login
-                          ? AuthMode.SignUp
-                          : AuthMode.Login;
-                    });
-                  },
-                  child: new Text(" Sign Up",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Constants.colors.primary)),
-                ),
-              ],
-            ):
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text("Already have an account? "),
-                new GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      _authMode = _authMode == AuthMode.Login
-                          ? AuthMode.SignUp
-                          : AuthMode.Login;
-                    });
-                  },
-                  child: new Text(" Sign In",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Constants.colors.primary)),
-                ),
-              ],
-            ),
+            _authMode == AuthMode.Login
+                ? Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text("If you don't have an account ? "),
+                      new GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            _authMode = _authMode == AuthMode.Login
+                                ? AuthMode.SignUp
+                                : AuthMode.Login;
+                          });
+                        },
+                        child: new Text(" Sign Up",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(color: Constants.colors.primary)),
+                      ),
+                    ],
+                  )
+                : Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text("Already have an account? "),
+                      new GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            _authMode = _authMode == AuthMode.Login
+                                ? AuthMode.SignUp
+                                : AuthMode.Login;
+                          });
+                        },
+                        child: new Text(" Sign In",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(color: Constants.colors.primary)),
+                      ),
+                    ],
+                  ),
             SizedBox(
-            height: 10.0,
+              height: 10.0,
             ),
           ],
         ),

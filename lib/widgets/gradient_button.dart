@@ -23,8 +23,9 @@ class GradientButton extends StatelessWidget {
       child: InkWell(
         onTap: onPressed,
         child: Ink(
-          height: 38.0,
+          height: 45,
           decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8),,
             gradient: LinearGradient(
               colors: Constants.colors.gradients,
             ),
@@ -34,9 +35,10 @@ class GradientButton extends StatelessWidget {
               text,
               textAlign: TextAlign.center,
               style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.normal,
-                  fontSize: 16.0),
+                color: Colors.white,
+                fontWeight: FontWeight.normal,
+                fontSize: 16.0,
+              ),
             ),
           ),
         ),
