@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_product/utils/icon_font.dart';
 
 import 'package:scoped_model/scoped_model.dart';
 
@@ -10,7 +11,7 @@ class LogoutListTile extends StatelessWidget {
     return ScopedModelDescendant(
       builder: (BuildContext context, Widget child, MainScopedModel model) {
         return ListTile(
-          leading: Icon(Icons.exit_to_app),
+          leading: Icon(FeatherIcons.log_out),
           title: Text('Logout'),
           onTap: () {
             model.logout();

@@ -46,7 +46,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   final routes = {
-    Constants.routes.root: (BuildContext context) => TabNavigator(),
+    Constants.routes.root: (BuildContext context) => AuthPage(),
   };
 
   @override
@@ -90,8 +90,8 @@ class _MyAppState extends State<MyApp> {
             routes: {
               '/': (BuildContext context) =>
                   // !_isAuthenticated ? AuthPage() : HomePage(_model),
-                  // !_isAuthenticated ? AuthPage() : TabNavigator(),
-                  TabNavigator()
+                  !_isAuthenticated ? AuthPage() : TabNavigator(),
+                  // TabNavigator()
             },
             onGenerateRoute: (RouteSettings settings) {
               if (!_isAuthenticated) {
@@ -149,7 +149,7 @@ class _MyAppState extends State<MyApp> {
             onUnknownRoute: (RouteSettings settings) {
               return MaterialPageRoute(
                   builder: (BuildContext context) =>
-                      !_isAuthenticated ? AuthPage() : HomePage(_model));
+                      !_isAuthenticated ? AuthPage() : HomePage());
             },
             locale: Locale(_locale),
             localizationsDelegates: [

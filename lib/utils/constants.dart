@@ -52,6 +52,9 @@ class Images {
   String get noImagePlaceholder => "$imageDir/no_image_placeholder.png";
   String get notFound => "$imageDir/not_found.png";
   String get food => "$imageDir/food.jpg";
+  String get facebook => "$imageDir/facebook.png";
+  String get google => "$imageDir/google.png";
+
 }
 
 class CommonColors {

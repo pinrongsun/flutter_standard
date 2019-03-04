@@ -62,6 +62,7 @@ class CustomTextInput extends StatelessWidget {
               style: TextStyle(color: color, fontSize: fontSize),
               decoration: InputDecoration(
                 // filled: true,
+                
                 // labelText: "Email",
                 labelStyle: TextStyle(color: Colors.red),
                 // enabledBorder: new UnderlineInputBorder(

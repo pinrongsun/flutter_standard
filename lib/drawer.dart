@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_product/utils/icon_font.dart';
 import './utils/constants.dart';
 import './widgets/ui_elements/logout_list_tile.dart';
 
@@ -25,33 +26,81 @@ class CustomDrawerState extends State<CustomDrawer> {
 
   Widget build(BuildContext context) {
     return Drawer(
-      child: new ListView(
-        padding: new EdgeInsets.all(0.0),
+      child: ListView(
+        padding: EdgeInsets.all(0.0),
         children: <Widget>[
-          new UserAccountsDrawerHeader(
-            accountEmail: new Text("bramvbilsen@gmail.com"),
-            accountName: new Text("Bramvbilsen"),
-            currentAccountPicture: new GestureDetector(
-              child: new CircleAvatar(
-                backgroundImage: AssetImage(currentProfilePic),
+          Stack(
+            children: <Widget>[
+              Column(
+                children: <Widget>[
+                  SizedBox.fromSize(
+                    size: Size.fromHeight(170),
+                    // width: 3000,
+                    // color: Colors.blue,
+                    child: Image(
+                      image: AssetImage(Constants.images.food),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ],
               ),
-              onTap: () => print("This is your current account."),
-            ),
-            otherAccountsPictures: <Widget>[
-              new GestureDetector(
-                  child: new CircleAvatar(
-                    backgroundImage: AssetImage(otherProfilePic),
-                  ),
-                  onTap: () => switchAccounts(),
-                  ),
+              Container(
+                alignment: Alignment.topCenter,
+                padding: EdgeInsets.only(
+                  top: 120,
+                  right: 20.0,
+                  left: 20.0,
+                ),
+                child: CircleAvatar(
+                  maxRadius: 45,
+                  backgroundImage: AssetImage(currentProfilePic),
+                ),
+              ),
+              Container(
+                alignment: Alignment.topCenter,
+                padding: EdgeInsets.only(
+                  top: 220,
+                  right: 20.0,
+                  left: 20.0,
+                ),
+                child: Column(
+                  children: <Widget>[
+                    Text(
+                      'Narong Unfake Real Zin',
+                      style: TextStyle(fontSize: Constants.fontSizes.title),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8.0),
+                      child: Text(
+                        'qwerkh@gmail.com',
+                        style:
+                            TextStyle(fontSize: Constants.fontSizes.subtitle),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              // Column(
+              //   children: <Widget>[
+              //     Container(
+              //       height: 170,
+              //       child: 
+              //     ),
+              //   ],
+              // ),
+              // Positioned(
+              //   child: CircleAvatar(
+              //     maxRadius: 35,
+              //     backgroundImage: AssetImage(currentProfilePic),
+              //   ),
+              // )
             ],
-            decoration: new BoxDecoration(
-              image: new DecorationImage(
-                  image: AssetImage(Constants.images.food), fit: BoxFit.fill),
-            ),
+          ),
+          SizedBox(
+            height: 10,
           ),
           ListTile(
-            leading: Icon(Icons.edit),
+            leading: Icon(FeatherIcons.archive),
             title: Text('News'),
             onTap: () {
               // Navigator.pushReplacementNamed(context, '/page1');
@@ -59,22 +108,12 @@ class CustomDrawerState extends State<CustomDrawer> {
             },
           ),
           ListTile(
-            leading: Icon(Icons.edit),
+            leading: Icon(FeatherIcons.file_text),
             title: Text('Test'),
-            onTap: () {
-              /*getTest().then((data) {
-                print(data['data']);
-              });*/
-            },
+            onTap: () => null,
           ),
           Divider(),
           LogoutListTile(),
-          new Divider(),
-          new ListTile(
-            title: new Text("Cancel"),
-            trailing: new Icon(Icons.cancel),
-            onTap: () => Navigator.pop(context),
-          ),
           // LogoutListTile()
         ],
       ),
