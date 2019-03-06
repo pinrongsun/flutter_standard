@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_product/scoped-models/main.dart';
 import 'package:flutter_product/utils/constants.dart';
 import 'package:flutter_product/utils/icon_font.dart';
 import 'package:flutter_product/utils/localization/app_localizations.dart';
+import 'package:flutter_product/widgets/app_builder.dart';
 import 'package:flutter_product/widgets/appbar.dart';
 import 'package:flutter_product/widgets/alert_dialog.dart';
 import 'package:flutter_product/widgets/card.dart';
@@ -10,6 +12,7 @@ import 'package:flutter_product/widgets/modal_sheet.dart';
 import 'package:flutter_product/widgets/snack_bar.dart';
 import 'package:flutter_product/widgets/text_input.dart';
 import 'package:flutter_product/widgets/touchable.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 class CommentPage extends StatefulWidget {
   @override
@@ -119,13 +122,68 @@ class _CommentPageState extends State<CommentPage> {
         CustomAppBar(
           title: 'Comment',
           onPress: () => Scaffold.of(context).openDrawer(),
+          actions: <Widget>[
+            IconButton(
+              color: Colors.black,
+              icon: Icon(FeatherIcons.search),
+              onPressed: () => null,
+            )
+          ],
         ),
         Expanded(
           child: ListView(
             children: <Widget>[
               Column(
                 children: <Widget>[
-                  Text("Comment Page"),
+                  Text(
+                    'Heading1',
+                    style: TextStyle(fontSize: Constants.fontSizes.heading1),
+                  ),
+                  Text(
+                    'Heading2',
+                    style: TextStyle(fontSize: Constants.fontSizes.heading2),
+                  ),
+                  Text(
+                    'Title',
+                    style: TextStyle(fontSize: Constants.fontSizes.title),
+                  ),
+                  Text(
+                    'SubTitle',
+                    style: TextStyle(fontSize: Constants.fontSizes.subtitle),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text('Text without size'),
+                      Text(
+                        'Text',
+                        style: TextStyle(fontSize: Constants.fontSizes.text),
+                      ),
+                    ],
+                  ),
+                  Text(
+                    'Caption',
+                    style: TextStyle(fontSize: Constants.fontSizes.caption),
+                  ),
+                  Text(
+                    Translate.of(context).hello,
+                    style: TextStyle(fontFamily: Constants.fonts.regular),
+                  ),
+                  Text(
+                    Translate.of(context).hello,
+                    style: TextStyle(
+                        fontFamily: Constants.fonts.regular,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    Translate.of(context).hello,
+                    style: TextStyle(fontFamily: Constants.fonts.bold),
+                  ),
+                  Text(
+                    Translate.of(context).hello,
+                    style: TextStyle(fontFamily: Constants.fonts.regularEn),
+                  ),
                   GradientButton(
                     onPressed: () {
                       CustomSnackBar(
@@ -149,40 +207,77 @@ class _CommentPageState extends State<CommentPage> {
                   RaisedButton(
                     child: Text("alert dialog"),
                     onPressed: () {
-                      CustomAlertDialog(context: context, actions: [
-                        FlatButton(
-                          textColor: Constants.colors.primary,
-                          child: Text("Okay"),
-                          onPressed: () => Navigator.of(context).pop(),
-                        ),
-                      ]).show();
+                      CustomAlertDialog(
+                          context: context,
+                          child: Container(
+                            color: Colors.redAccent,
+                            height: 100,
+                            child: Text('hello'),
+                          ),
+                          actions: [
+                            FlatButton(
+                              textColor: Constants.colors.primary,
+                              child: Text(Translate.of(context).hello),
+                              onPressed: () => Navigator.of(context).pop(),
+                            ),
+                            FlatButton(
+                              textColor: Constants.colors.primary,
+                              child: Text(Translate.of(context).hello),
+                              onPressed: () => Navigator.of(context).pop(),
+                            ),
+                            FlatButton(
+                              textColor: Constants.colors.primary,
+                              child: Text(Translate.of(context).hello),
+                              onPressed: () => Navigator.of(context).pop(),
+                            ),
+                            FlatButton(
+                              textColor: Constants.colors.primary,
+                              child: Text(Translate.of(context).hello),
+                              onPressed: () => Navigator.of(context).pop(),
+                            ),
+                          ]).show();
                     },
                   ),
                   Text(Translate.of(context).hello),
-                  RaisedButton(
-                    onPressed: () => null,
-                    child: Text('Change language'),
+                  ScopedModelDescendant<MainScopedModel>(
+                    builder: (context, child, model) => RaisedButton(
+                          onPressed: () {
+                            model.onChangeLanguage();
+                            AppBuilder.of(context).rebuild();
+                          },
+                          child: Text('Change language'),
+                        ),
                   ),
+//
+//
                   CustomCard(
                     onPress: () => print('card press'),
-                    left: Image(
-                      image: AssetImage(Constants.images.food),
-                      fit: BoxFit.fill,
+                    left: Container(
+                      width: 70,
+                      child: Image(
+                        image: AssetImage(Constants.images.food),
+                        fit: BoxFit.fill,
+                      ),
                     ),
                     content: Text(
-                        'Card information  informa tion infor mation using expanded wid'),
-                    right: Icon(FeatherIcons.alert_circle),
-                    height: 100,
+                        'Card information this is a test of custom card hellohow  arey you dfsd ssdf fdsf sfs sfss sfs informa tion infor mation using expanded wid'),
+                    right: Container(
+                      width: 30,
+                      child: Icon(FeatherIcons.alert_circle),
+                    ),
                   ),
-                  //this custom card should be placed under ui_elements or...
+                  //
+                  //
+                  //
                   CustomCard(
-                    edgeInsets: EdgeInsets.only(top: 5, bottom: 5),
+                    edgeInsets:
+                        EdgeInsets.only(top: 10, bottom: 10, left: 0, right: 0),
                     content: Column(
                       children: <Widget>[
                         Container(
                           height: 50,
-                          // color: Constants.colors.danger,
                           child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Align(
                                 alignment: Alignment.centerLeft,
@@ -215,9 +310,6 @@ class _CommentPageState extends State<CommentPage> {
                                     ),
                                   ],
                                 ),
-                              ),
-                              Expanded(
-                                child: Container(),
                               ),
                               Align(
                                 alignment: Alignment.topRight,
@@ -255,6 +347,7 @@ class _CommentPageState extends State<CommentPage> {
                           ),
                         ),
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             Align(
                               alignment: Alignment.centerLeft,
@@ -271,9 +364,6 @@ class _CommentPageState extends State<CommentPage> {
                                 ],
                               ),
                             ),
-                            Expanded(
-                              child: Container(),
-                            ),
                             Align(
                               alignment: Alignment.centerRight,
                               child: Container(
@@ -289,75 +379,84 @@ class _CommentPageState extends State<CommentPage> {
                           ],
                         ),
                         Divider(),
-                        Expanded(
-                          child: Align(
-                            alignment: Alignment.bottomCenter,
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.only(left: 20, right: 20),
-                              child: Container(
-                                height: 40,
-                                // color: Constants.colors.info,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Touchable(
-                                        icon: Icon(
-                                          FeatherIcons.thumbs_up,
-                                          size: 20,
-                                        ),
-                                        child: Text(
-                                          'Like',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ),
-                                    ),
-                                    Align(
-                                      alignment: Alignment.center,
-                                      child: Touchable(
-                                        icon: Icon(
-                                          FeatherIcons.message_square,
-                                          size: 20,
-                                        ),
-                                        child: Text(
-                                          'Comment',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ),
-                                    ),
-                                    Align(
-                                      alignment: Alignment.centerRight,
-                                      child: Touchable(
-                                        icon: Icon(
-                                          FeatherIcons.share,
-                                          size: 20,
-                                        ),
-                                        child: Text(
-                                          'Share',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ),
-                                    )
-                                  ],
+                        Padding(
+                          padding: const EdgeInsets.only(left: 25, right: 25),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Touchable(
+                                  icon: Icon(
+                                    FeatherIcons.thumbs_up,
+                                    size: 20,
+                                  ),
+                                  child: Text(
+                                    'Like',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  ),
                                 ),
                               ),
-                            ),
+                              Align(
+                                alignment: Alignment.center,
+                                child: Touchable(
+                                  icon: Icon(
+                                    FeatherIcons.message_square,
+                                    size: 20,
+                                  ),
+                                  child: Text(
+                                    'Comment',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                              ),
+                              Align(
+                                alignment: Alignment.centerRight,
+                                child: Touchable(
+                                  icon: Icon(
+                                    FeatherIcons.share,
+                                    size: 20,
+                                  ),
+                                  child: Text(
+                                    'Share',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                              )
+                            ],
                           ),
                         ),
                       ],
                     ),
-                    height: 450,
                   ),
+                  //
+                  //
+                  //
                   Padding(
                     padding: const EdgeInsets.all(40.0),
-                    child: CustomTextInput(iconName: FeatherIcons.mail, hint: "Email",),
+                    child: CustomTextInput(
+                      borderRadius: 5,
+                      iconName: FeatherIcons.mail,
+                      hint: "Email",
+                    ),
                   ),
+                  RaisedButton(
+                    onPressed: () => null,
+                    child: Text('Loader indicator'),
+                  ),
+                  RaisedButton(
+                    onPressed: () {
+                      ScopedModel.of<MainScopedModel>(context,
+                              rebuildOnChange: true)
+                          .loading(true);
+                    },
+                    child: Text('Loader overlay'),
+                  ),
+
+                  // LoaderIndicator(color: Constants.colors.primary,),
                   SizedBox(
                     height: 20,
                   )

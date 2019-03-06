@@ -1,7 +1,7 @@
 import 'package:scoped_model/scoped_model.dart';
 
 mixin LanguageScopedModel on Model {
-  String _locale = 'km';
+  String _locale = 'en';
   void onChangeLanguage() {
     if (_locale == 'en') {
       _locale = 'km';

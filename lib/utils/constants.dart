@@ -1,7 +1,5 @@
 import 'dart:math';
 import 'dart:ui';
-
-//import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 
 class Routes {
@@ -13,33 +11,20 @@ class Routes {
   String get signUp => "/signUp";
 }
 
-// class ScreenHelper {
-  // String get signin => "Signin";
-  // String get teacherProfile => "Teacher Profile";
-  // String get studentProfile => "Student Profile";
-  // String get subjectList => "Subject";
-  // String get subjectDetail => "Subject Detail";
-  // String get postList => "Post";
-  // String get postDetail => "Post Detail";}
-
 class Fonts {
-  String get regular => "";
-  String get bold => "";
+  String get regular => "Kantumruy";
+  String get bold => "KHmuollight";
   String get italic => "";
-  // String get quickFont => "Quicksand";
-  // String get abelFont => "Abel";
-  // String get dinNextFont => "DinNext";
-  // String get khBoeungFont => "KhBoeung";
-  // String get quickNormalFont => "Quicksand_Book.otf";
-  // String get quickLightFont => "Quicksand_Light.otf";
-  // String get kantumruy => "Kantumruy";
+  String get regularEn => "DinNext";
+  String get kantumruy => "Kantumruy";
+  String get battambang => "KhOSBattambang";
 }
 
 class FontSizes {
-  double get heading1 =>  24.0;
-  double get heading2 =>  22.0;
+  double get heading1 =>  27.0;
+  double get heading2 =>  24.0;
   double get title =>  20.0;
-  double get subtitle =>  16.0;
+  double get subtitle =>  17.0;
   double get text =>  15.0;
   double get caption =>  14.0;
 }

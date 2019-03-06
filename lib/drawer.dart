@@ -52,14 +52,14 @@ class CustomDrawerState extends State<CustomDrawer> {
                   left: 20.0,
                 ),
                 child: CircleAvatar(
-                  maxRadius: 45,
+                  maxRadius: 40,
                   backgroundImage: AssetImage(currentProfilePic),
                 ),
               ),
               Container(
                 alignment: Alignment.topCenter,
                 padding: EdgeInsets.only(
-                  top: 220,
+                  top: 210,
                   right: 20.0,
                   left: 20.0,
                 ),
@@ -80,42 +80,65 @@ class CustomDrawerState extends State<CustomDrawer> {
                   ],
                 ),
               ),
-              // Column(
-              //   children: <Widget>[
-              //     Container(
-              //       height: 170,
-              //       child: 
-              //     ),
-              //   ],
-              // ),
-              // Positioned(
-              //   child: CircleAvatar(
-              //     maxRadius: 35,
-              //     backgroundImage: AssetImage(currentProfilePic),
-              //   ),
-              // )
             ],
           ),
           SizedBox(
             height: 10,
           ),
-          ListTile(
-            leading: Icon(FeatherIcons.archive),
-            title: Text('News'),
-            onTap: () {
+          drawerItem(
+              selected: true,
+              icon: FeatherIcons.file_text,
+              text: "News",
               // Navigator.pushReplacementNamed(context, '/page1');
-              Navigator.pushNamed(context, Constants.routes.news);
-            },
-          ),
-          ListTile(
-            leading: Icon(FeatherIcons.file_text),
-            title: Text('Test'),
-            onTap: () => null,
-          ),
+              onTap: () => Navigator.pushNamed(context, Constants.routes.news)),
+          drawerItem(
+              selected: false, icon: FeatherIcons.file_text, text: "Test"),
           Divider(),
           LogoutListTile(),
           // LogoutListTile()
         ],
+      ),
+    );
+  }
+
+  Widget drawerItem(
+      {bool selected,
+      Function onTap,
+      @required IconData icon,
+      @required String text}) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 5, right: 5),
+      child: Card(
+        elevation: 0,
+        color: selected ? Colors.blue[100] : Colors.transparent,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(5),
+          onTap: onTap,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: <Widget>[
+                Container(
+                  child: Icon(
+                    icon,
+                    color: selected ? Constants.colors.primary : Colors.black,
+                    size: Constants.fontSizes.heading2,
+                  ),
+                ),
+                SizedBox(
+                  width: 30,
+                ),
+                Text(
+                  text,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: selected ? Constants.colors.primary : Colors.black,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }
