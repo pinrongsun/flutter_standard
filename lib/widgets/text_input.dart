@@ -1,5 +1,3 @@
-// import 'package:find_tutors/utils/constants.dart';
-// import 'package:find_tutors/utils/icon_font.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_product/utils/constants.dart';
 import 'package:flutter_product/utils/icon_font.dart';
@@ -18,6 +16,8 @@ class CustomTextInput extends StatelessWidget {
   final bool obscureText;
   final int maxLength;
   final TextInputType keyboardType;
+  final double borderRadius;
+  final bool filled;
   CustomTextInput({
     this.hint = "",
     this.color = const Color(0xFF196ed2),
@@ -32,18 +32,15 @@ class CustomTextInput extends StatelessWidget {
     this.maxLength,
     this.keyboardType = TextInputType.text,
     this.obscureText = false,
+    this.borderRadius = 5,
+    this.filled = true,
   });
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: Colors.grey[200],
-        // border: Border(
-
-        //   bottom: BorderSide(
-        //       color: Colors.grey, width: 0.7, style: BorderStyle.solid),
-        // ),
+        borderRadius: BorderRadius.circular(borderRadius),
+        color: filled ? Colors.grey[200] : Colors.transparent,
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -61,13 +58,9 @@ class CustomTextInput extends StatelessWidget {
               textAlign: TextAlign.left,
               style: TextStyle(color: color, fontSize: fontSize),
               decoration: InputDecoration(
-                // filled: true,
-                
+                // filled: filled,
                 // labelText: "Email",
-                labelStyle: TextStyle(color: Colors.red),
-                // enabledBorder: new UnderlineInputBorder(
-                //   borderSide: new BorderSide(color: Colors.red),
-                // ),
+                // labelStyle: TextStyle(color: Colors.red),
                 prefixIcon: Icon(
                   FeatherIcons.mail,
                   size: iconSize,
@@ -75,14 +68,6 @@ class CustomTextInput extends StatelessWidget {
                 border: InputBorder.none,
                 hintText: hint,
                 hasFloatingPlaceholder: true,
-                // labelStyle: TextStyle(color: color),
-                // icon: iconName != null
-                //     ? Icon(
-                //         iconName,
-                //         size: iconSize,
-                //         // color: iconColor,
-                //       )
-                //     : null,
               ),
             ),
           ),

@@ -22,19 +22,19 @@ class CustomSnackBar {
   _icon() {
     switch (type) {
       case "success":
-        return Icon(FeatherIcons.check_square, size: 24);
+        return Icon(FeatherIcons.check_square, size: 21);
         break;
       case "danger":
-        return Icon(FeatherIcons.x_circle, size: 24);
+        return Icon(FeatherIcons.x_circle, size: 21);
         break;
       case "warning":
-        return Icon(FeatherIcons.alert_triangle, size: 24);
+        return Icon(FeatherIcons.alert_triangle, size: 21);
         break;
       case "info":
-        return Icon(FeatherIcons.alert_circle, size: 24);
+        return Icon(FeatherIcons.alert_circle, size: 21);
         break;
       default:
-        return Icon(FeatherIcons.alert_circle, size: 24);
+        return Icon(FeatherIcons.alert_circle, size: 21);
         break;
     }
   }
@@ -63,13 +63,15 @@ class CustomSnackBar {
     Scaffold.of(context).showSnackBar(
       SnackBar(
         content: Container(
-          height: 52.0,
+          height: 53.0,
           child: Column(
             children: <Widget>[
               Padding(padding: EdgeInsets.only(bottom: 5), child: _icon()),
               Text(
                 message,
-                style: TextStyle(fontSize: Constants.fontSizes.subtitle),
+                style: TextStyle(
+                    fontSize: Constants.fontSizes.text,
+                    fontFamily: Constants.fonts.regular),
               ),
             ],
           ),

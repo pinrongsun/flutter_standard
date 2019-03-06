@@ -5,7 +5,8 @@ import 'package:flutter_product/utils/constants.dart';
 class CustomAlertDialog {
   BuildContext context;
   String title;
-  String content;
+  String text;
+  Widget child;
   List<Widget> actions;
   Function yes;
   Function no;
@@ -13,7 +14,8 @@ class CustomAlertDialog {
   CustomAlertDialog(
       {@required this.context,
       this.title = "title",
-      this.content = "content",
+      this.text = "content",
+      this.child,
       this.actions,
       this.yes,
       this.no});
@@ -22,9 +24,11 @@ class CustomAlertDialog {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return CupertinoAlertDialog(
+        return AlertDialog(
+          titlePadding: EdgeInsets.all(15),
+          contentPadding: EdgeInsets.only(left: 15, right: 15),
           title: Text(title, style: TextStyle(fontWeight: FontWeight.bold)),
-          content: Text(content),
+          content: child,
           actions: actions,
         );
       },
@@ -46,7 +50,7 @@ class CustomAlertDialog {
             title,
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
-          content: Text(content),
+          content: Text(text),
           actions: <Widget>[
             FlatButton(
               child: Text("CANCEL",

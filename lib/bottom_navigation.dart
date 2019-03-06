@@ -2,9 +2,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_product/drawer.dart';
 import 'package:flutter_product/pages/home.dart';
+import 'package:flutter_product/scoped-models/main.dart';
 import 'package:flutter_product/utils/constants.dart';
 import 'package:flutter_product/utils/localization/app_translations.dart';
+import 'package:flutter_product/widgets/activity_indicator.dart';
 import 'package:flutter_product/widgets/appbar.dart';
+import 'package:scoped_model/scoped_model.dart';
 import './utils/icon_font.dart';
 import './pages/post.dart';
 import './pages/comment.dart';
@@ -171,27 +174,34 @@ class _TabNavigatorState extends State<TabNavigator>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: scaffoldKey,
-      appBar: buildAppBar(),
-      drawer: CustomDrawer(onTabMenuTap: onNavigationIconViewTab),
-      body: Stack(
-        children: <Widget>[
-          Offstage(
-            offstage: _tab != 0,
-            child: HomePage(),
-          ),
-          Offstage(
-            offstage: _tab != 1,
-            child: CommentPage(),
-          ),
-          Offstage(
-            offstage: _tab != 2,
-            child: MessagePage(),
-          ),
-        ],
+    final isLoading =
+        ScopedModel.of<MainScopedModel>(context, rebuildOnChange: true)
+            .isLoading;
+    return ActivityIndicatorOverlay(
+      inAsyncCall: isLoading,
+      progressIndicator: ActivityIndicator(color: Constants.colors.primary,),
+      child: Scaffold(
+        key: scaffoldKey,
+        appBar: buildAppBar(),
+        drawer: CustomDrawer(onTabMenuTap: onNavigationIconViewTab),
+        body: Stack(
+          children: <Widget>[
+            Offstage(
+              offstage: _tab != 0,
+              child: HomePage(),
+            ),
+            Offstage(
+              offstage: _tab != 1,
+              child: CommentPage(),
+            ),
+            Offstage(
+              offstage: _tab != 2,
+              child: MessagePage(),
+            ),
+          ],
+        ),
+        bottomNavigationBar: botNavBar(),
       ),
-      bottomNavigationBar: botNavBar(),
     );
   }
 

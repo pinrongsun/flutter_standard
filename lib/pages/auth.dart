@@ -65,101 +65,96 @@ class _AuthPageState extends State<AuthPage> {
     return Scaffold(
       body: SafeArea(
         child: Container(
-          decoration: BoxDecoration(
-            image: _buildBackgroundImage(),
-          ),
           child: Center(
             child: SingleChildScrollView(
-              child: Container(
-                padding: EdgeInsets.only(left: 35, right: 35),
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    children: <Widget>[
-                      Padding(
-                        child: Text(
-                          'Sign In',
-                          style:
-                              TextStyle(fontSize: Constants.fontSizes.heading1),
-                        ),
-                        padding: EdgeInsets.only(bottom: 50),
-                      ),
-                      _buildSocialLogin(),
-                      Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Text(
-                          '- OR -',
-                          style:
-                              TextStyle(fontSize: Constants.fontSizes.subtitle),
-                        ),
-                      ),
-                      Material(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.white,
-                        elevation: 1.6,
-                        shadowColor: Colors.black38,
-                        child: Column(
-                          children: <Widget>[
-                            Padding(
-                                padding: const EdgeInsets.only(
-                                    top: 5, bottom: 5, right: 15, left: 15),
-                                child: _buildEmailTextField()),
-                            Divider(
-                              height: 1,
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    padding: EdgeInsets.only(left: 35, right: 35),
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        children: <Widget>[
+                          Padding(
+                            child: Text(
+                              'Sign In',
+                              style: TextStyle(
+                                  fontSize: Constants.fontSizes.heading1),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                  top: 5, bottom: 5, right: 15, left: 15),
-                              child: _buildPasswordTextField(),
+                            padding: EdgeInsets.only(bottom: 50),
+                          ),
+                          _buildSocialLogin(),
+                          Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: Text(
+                              '- OR -',
+                              style: TextStyle(
+                                  fontSize: Constants.fontSizes.subtitle),
                             ),
-                          ],
-                        ),
+                          ),
+                          Material(
+                            borderRadius: BorderRadius.circular(5),
+                            color: Colors.white,
+                            elevation: 1.6,
+                            shadowColor: Colors.black38,
+                            child: Column(
+                              children: <Widget>[
+                                Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 5, bottom: 5, right: 15, left: 15),
+                                    child: _buildEmailTextField()),
+                                Divider(
+                                  height: 1,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 5, bottom: 5, right: 15, left: 15),
+                                  child: _buildPasswordTextField(),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 15, bottom: 15),
+                            child: _buildRememberMe(),
+                          ),
+                          _authMode == AuthMode.SignUp
+                              ? _buildPasswordConfirmTextField()
+                              : Container(),
+                          // _buildAcceptSwitch(),
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 15),
+                            child: _buildLoginFooter(context),
+                          ),
+                        ],
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 15, bottom: 15),
-                        child: _buildRememberMe(),
-                      ),
-                      _authMode == AuthMode.SignUp
-                          ? _buildPasswordConfirmTextField()
-                          : Container(),
-                      // _buildAcceptSwitch(),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 15),
-                        child: _buildLoginFooter(context),
-                      ),
-                      ScopedModelDescendant<MainScopedModel>(
-                        builder: (BuildContext context, Widget child,
-                            MainScopedModel model) {
-                          return model.isLoading
-                              ? CircularProgressIndicator()
-                              : Container(
-                                  padding: EdgeInsets.symmetric(
-                                    vertical: 0.0,
-                                  ),
-                                  width: double.infinity,
-                                  child: GradientButton(
-                                    onPressed: () {
-                                      _submitForm(model.authenticate);
-                                    },
-                                    text: _authMode == AuthMode.Login
-                                        ? 'Sign In'
-                                        : 'Sign Up',
-                                  ),
-                                );
-
-                          /*RaisedButton(
-                                  textColor: Colors.white,
-                                  child: Text(_authMode == AuthMode.Login
-                                      ? 'LOGIN'
-                                      : 'SIGNUP'),
-                                  onPressed: () =>
-                                      _submitForm(model.authenticate),
-                                );*/
-                        },
-                      ),
-                    ],
+                    ),
                   ),
-                ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 15, left: 15),
+                    child: ScopedModelDescendant<MainScopedModel>(
+                      builder: (BuildContext context, Widget child,
+                          MainScopedModel model) {
+                        return model.isLoading
+                            ? CircularProgressIndicator()
+                            : Container(
+                                padding: EdgeInsets.symmetric(
+                                  vertical: 0.0,
+                                ),
+                                width: double.infinity,
+                                child: GradientButton(
+                                  onPressed: () {
+                                    _submitForm(model.authenticate);
+                                  },
+                                  text: _authMode == AuthMode.Login
+                                      ? 'Sign In'
+                                      : 'Sign Up',
+                                ),
+                              );
+                      },
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
@@ -175,9 +170,9 @@ class _AuthPageState extends State<AuthPage> {
             style: TextStyle(fontSize: Constants.fontSizes.title),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 10),
+            padding: const EdgeInsets.only(top: 30),
             child: Material(
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(5),
               color: Colors.white,
               elevation: 1.6,
               shadowColor: Colors.black38,
@@ -185,7 +180,7 @@ class _AuthPageState extends State<AuthPage> {
                 children: <Widget>[
                   InkWell(
                     onTap: () => null,
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(5),
                     child: Padding(
                       padding: const EdgeInsets.all(15.0),
                       child: Table(
@@ -219,7 +214,7 @@ class _AuthPageState extends State<AuthPage> {
                   Divider(height: 1),
                   InkWell(
                     onTap: () => null,
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(5),
                     child: Padding(
                       padding: const EdgeInsets.all(15.0),
                       child: Table(
