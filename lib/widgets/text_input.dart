@@ -38,40 +38,33 @@ class CustomTextInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: EdgeInsets.only(right: 10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(borderRadius),
         color: filled ? Colors.grey[200] : Colors.transparent,
       ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Expanded(
-            child: TextField(
-              keyboardType: keyboardType,
-              obscureText: obscureText,
-              onChanged: onChanged,
-              autofocus: autofocus,
-              enabled: enabled,
-              maxLength: maxLength,
-              onSubmitted: onSubmitted,
-              textAlign: TextAlign.left,
-              style: TextStyle(color: color, fontSize: fontSize),
-              decoration: InputDecoration(
-                // filled: filled,
-                // labelText: "Email",
-                // labelStyle: TextStyle(color: Colors.red),
-                prefixIcon: Icon(
-                  FeatherIcons.mail,
-                  size: iconSize,
-                ),
-                border: InputBorder.none,
-                hintText: hint,
-                hasFloatingPlaceholder: true,
-              ),
-            ),
+      child: TextField(
+        keyboardType: keyboardType,
+        obscureText: obscureText,
+        onChanged: onChanged,
+        autofocus: autofocus,
+        enabled: enabled,
+        maxLength: maxLength,
+        onSubmitted: onSubmitted,
+        textAlign: TextAlign.left,
+        style: TextStyle(color: color, fontSize: fontSize),
+        decoration: InputDecoration(
+          // filled: filled,
+          // labelText: "Email",
+          // labelStyle: TextStyle(color: Colors.red),
+          prefixIcon: Icon(
+            FeatherIcons.mail,
+            size: iconSize,
           ),
-        ],
+          border: InputBorder.none,
+          hintText: hint,
+          hasFloatingPlaceholder: true,
+        ),
       ),
     );
   }

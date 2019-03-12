@@ -125,7 +125,7 @@ class _MyAppState extends State<MyApp> {
   onGenerateRoute(RouteSettings rs) {
     if (!_isAuthenticated) {
       return MaterialPageRoute(
-          builder: (BuildContext context) => AuthPage());
+          builder: (BuildContext context) => TabNavigator());
     }
     if (rs.name == '/news') {
       return !_isAuthenticated

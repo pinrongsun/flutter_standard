@@ -3,15 +3,19 @@ import 'package:flutter_product/scoped-models/main.dart';
 import 'package:flutter_product/utils/constants.dart';
 import 'package:flutter_product/utils/icon_font.dart';
 import 'package:flutter_product/utils/localization/app_localizations.dart';
+import 'package:flutter_product/widgets/activity_indicator.dart';
 import 'package:flutter_product/widgets/app_builder.dart';
 import 'package:flutter_product/widgets/appbar.dart';
 import 'package:flutter_product/widgets/alert_dialog.dart';
 import 'package:flutter_product/widgets/card.dart';
+import 'package:flutter_product/widgets/datetime_picker.dart';
 import 'package:flutter_product/widgets/gradient_button.dart';
 import 'package:flutter_product/widgets/modal_sheet.dart';
+import 'package:flutter_product/widgets/picker.dart';
 import 'package:flutter_product/widgets/snack_bar.dart';
 import 'package:flutter_product/widgets/text_input.dart';
 import 'package:flutter_product/widgets/touchable.dart';
+import 'package:intl/intl.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class CommentPage extends StatefulWidget {
@@ -20,6 +24,9 @@ class CommentPage extends StatefulWidget {
 }
 
 class _CommentPageState extends State<CommentPage> {
+  String color;
+  bool showIndicator = false;
+
   _showModalSheets(context) {
     CustomBottomSheet(
       context: context,
@@ -249,7 +256,6 @@ class _CommentPageState extends State<CommentPage> {
                         ),
                   ),
 //
-//
                   CustomCard(
                     onPress: () => print('card press'),
                     left: Container(
@@ -434,17 +440,41 @@ class _CommentPageState extends State<CommentPage> {
                   ),
                   //
                   //
-                  //
                   Padding(
-                    padding: const EdgeInsets.all(40.0),
+                    padding: const EdgeInsets.only(left: 40.0, right: 40),
                     child: CustomTextInput(
                       borderRadius: 5,
                       iconName: FeatherIcons.mail,
                       hint: "Email",
                     ),
                   ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 40.0, right: 40),
+                    child: CustomPicker(
+                      onChanged: (String val) =>
+                          this.setState(() => color = val),
+                      selectedValue: color,
+                      items: [
+                        {"label": "green", "value": "green"},
+                        {"label": "yellow", "value": "yellow"}
+                      ],
+                      borderRadius: 5,
+                      iconName: FeatherIcons.anchor,
+                      hint: "Color",
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 40, right: 40),
+                    child: CustomDateTimePicker(
+                      hint: "Date Time",
+                      // inputType: "time",
+                      iconName: FeatherIcons.calendar,
+                      onChanged: (dt) => print(dt),
+                    ),
+                  ),
                   RaisedButton(
-                    onPressed: () => null,
+                    onPressed: () => this
+                        .setState(() => this.showIndicator = !showIndicator),
                     child: Text('Loader indicator'),
                   ),
                   RaisedButton(
@@ -456,7 +486,11 @@ class _CommentPageState extends State<CommentPage> {
                     child: Text('Loader overlay'),
                   ),
 
-                  // LoaderIndicator(color: Constants.colors.primary,),
+                  showIndicator
+                      ? ActivityIndicator(
+                          color: Constants.colors.primary,
+                        )
+                      : Container(),
                   SizedBox(
                     height: 20,
                   )

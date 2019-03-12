@@ -107,8 +107,8 @@ class ActivityIndicatorOverlay extends StatelessWidget {
   ActivityIndicatorOverlay({
     Key key,
     @required this.inAsyncCall,
-    this.opacity = 0.3,
-    this.color = Colors.grey,
+    this.opacity = 0.6,
+    this.color = Colors.white,
     this.progressIndicator = const CircularProgressIndicator(),
     this.offset,
     this.dismissible = false,
