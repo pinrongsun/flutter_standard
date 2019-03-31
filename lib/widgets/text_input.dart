@@ -6,7 +6,8 @@ class CustomTextInput extends StatelessWidget {
   final String hint;
   final Color color;
   final Color iconColor;
-  final IconData iconName;
+  final IconData prefixIcon;
+  final IconData suffixIcon;
   final double fontSize;
   final double iconSize;
   final Function onChanged;
@@ -18,11 +19,13 @@ class CustomTextInput extends StatelessWidget {
   final TextInputType keyboardType;
   final double borderRadius;
   final bool filled;
+  final Color backgroundColor;
   CustomTextInput({
     this.hint = "",
     this.color = const Color(0xFF196ed2),
     this.fontSize = 16.0,
-    this.iconName = FeatherIcons.star,
+    this.prefixIcon,
+    this.suffixIcon,
     this.iconSize = 22.0,
     this.iconColor = const Color(0xFF196ed2),
     this.onChanged,
@@ -34,14 +37,19 @@ class CustomTextInput extends StatelessWidget {
     this.obscureText = false,
     this.borderRadius = 5,
     this.filled = true,
+    this.backgroundColor,
   });
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(right: 10),
+      padding: EdgeInsets.only(
+          left: prefixIcon != null ? 0 : 10,
+          right: suffixIcon != null ? 0 : 10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(borderRadius),
-        color: filled ? Colors.grey[200] : Colors.transparent,
+        color: filled
+            ? Colors.grey[200]
+            : backgroundColor != null ? backgroundColor : Colors.white,
       ),
       child: TextField(
         keyboardType: keyboardType,
@@ -57,10 +65,18 @@ class CustomTextInput extends StatelessWidget {
           // filled: filled,
           // labelText: "Email",
           // labelStyle: TextStyle(color: Colors.red),
-          prefixIcon: Icon(
-            FeatherIcons.mail,
-            size: iconSize,
-          ),
+          prefixIcon: prefixIcon != null
+              ? Icon(
+                  prefixIcon,
+                  size: iconSize,
+                )
+              : null,
+          suffixIcon: suffixIcon != null
+              ? Icon(
+                  suffixIcon,
+                  size: iconSize,
+                )
+              : null,
           border: InputBorder.none,
           hintText: hint,
           hasFloatingPlaceholder: true,

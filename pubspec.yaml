@@ -17,6 +17,7 @@ dependencies:
   rxdart: "^0.18.0"
   sqflite: any
   path_provider: any
+  cached_network_image:
 
 dev_dependencies:
   flutter_test:

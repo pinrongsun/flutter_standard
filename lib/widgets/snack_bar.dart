@@ -70,7 +70,7 @@ class CustomSnackBar {
               Text(
                 message,
                 style: TextStyle(
-                    fontSize: Constants.fontSizes.text,
+                    // fontSize: Constants.fontSizes.text,
                     fontFamily: Constants.fonts.regular),
               ),
             ],

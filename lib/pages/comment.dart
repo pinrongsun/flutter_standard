@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_product/scoped-models/main.dart';
 import 'package:flutter_product/utils/constants.dart';
@@ -144,11 +145,11 @@ class _CommentPageState extends State<CommentPage> {
                 children: <Widget>[
                   Text(
                     'Heading1',
-                    style: TextStyle(fontSize: Constants.fontSizes.heading1),
+                    style: TextStyle(fontSize: Constants.fontSizes.display1),
                   ),
                   Text(
                     'Heading2',
-                    style: TextStyle(fontSize: Constants.fontSizes.heading2),
+                    style: TextStyle(fontSize: Constants.fontSizes.display2),
                   ),
                   Text(
                     'Title',
@@ -165,7 +166,7 @@ class _CommentPageState extends State<CommentPage> {
                       Text('Text without size'),
                       Text(
                         'Text',
-                        style: TextStyle(fontSize: Constants.fontSizes.text),
+                        style: TextStyle(fontSize: Constants.fontSizes.body1),
                       ),
                     ],
                   ),
@@ -265,8 +266,13 @@ class _CommentPageState extends State<CommentPage> {
                         fit: BoxFit.fill,
                       ),
                     ),
-                    content: Text(
-                        'Card information this is a test of custom card hellohow  arey you dfsd ssdf fdsf sfs sfss sfs informa tion infor mation using expanded wid'),
+                    content: Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 8),
+                        child: Text(
+                            'Card information this is a test of custom card hellohow  arey you dfsd ssdf fdsf sfs sfss sfs informa tion infor mation using expanded wid'),
+                      ),
+                    ),
                     right: Container(
                       width: 30,
                       child: Icon(FeatherIcons.alert_circle),
@@ -278,164 +284,167 @@ class _CommentPageState extends State<CommentPage> {
                   CustomCard(
                     edgeInsets:
                         EdgeInsets.only(top: 10, bottom: 10, left: 0, right: 0),
-                    content: Column(
-                      children: <Widget>[
-                        Container(
-                          height: 50,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Align(
-                                alignment: Alignment.centerLeft,
-                                child: Row(
-                                  children: <Widget>[
-                                    Padding(
-                                      padding: const EdgeInsets.only(right: 10),
-                                      child: Container(
-                                        width: 40.0,
-                                        height: 40.0,
-                                        decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          image: DecorationImage(
-                                            fit: BoxFit.fill,
-                                            image: AssetImage(
-                                                Constants.images.avatar),
+                    content: Expanded(
+                      child: Column(
+                        children: <Widget>[
+                          Container(
+                            height: 50,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Row(
+                                    children: <Widget>[
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(right: 10),
+                                        child: Container(
+                                          width: 40.0,
+                                          height: 40.0,
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            image: DecorationImage(
+                                              fit: BoxFit.fill,
+                                              image: AssetImage(
+                                                  Constants.images.avatar),
+                                            ),
                                           ),
                                         ),
                                       ),
-                                    ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        Text('Phirum'),
-                                        Text('Developer')
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Align(
-                                alignment: Alignment.topRight,
-                                child: Container(
-                                  width: 35,
-                                  height: 35,
-                                  child: TouchableWithFeedback(
-                                    borderRadius: 20,
-                                    onTap: () => null,
-                                    child: Icon(FeatherIcons.more_horizontal),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Text('Phirum'),
+                                          Text('Developer')
+                                        ],
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              ),
-                            ],
+                                Align(
+                                  alignment: Alignment.topRight,
+                                  child: Container(
+                                    width: 35,
+                                    height: 35,
+                                    child: TouchableWithFeedback(
+                                      borderRadius: 20,
+                                      onTap: () => null,
+                                      child: Icon(FeatherIcons.more_horizontal),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 5, bottom: 10),
-                          child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text('statusMesage'),
-                          ),
-                        ),
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(5.0),
-                          child: Image(
-                            image: AssetImage(Constants.images.food),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 5, bottom: 10),
-                          child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text('picture description'),
-                          ),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Align(
+                          Padding(
+                            padding: const EdgeInsets.only(top: 5, bottom: 10),
+                            child: Align(
                               alignment: Alignment.centerLeft,
-                              child: Row(
-                                children: <Widget>[
-                                  Icon(
-                                    FeatherIcons.package,
-                                    size: 16,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 5),
-                                    child: Text('496'),
-                                  ),
-                                ],
-                              ),
+                              child: Text('statusMesage'),
                             ),
-                            Align(
-                              alignment: Alignment.centerRight,
-                              child: Container(
-                                child: Row(
-                                  children: <Widget>[
-                                    Text('52 comments'),
-                                    Text('-'),
-                                    Text('18 shared'),
-                                  ],
-                                ),
-                              ),
+                          ),
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(5.0),
+                            child: Image(
+                              image: AssetImage(Constants.images.food),
                             ),
-                          ],
-                        ),
-                        Divider(),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 25, right: 25),
-                          child: Row(
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 5, bottom: 10),
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text('picture description'),
+                            ),
+                          ),
+                          Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Align(
                                 alignment: Alignment.centerLeft,
-                                child: Touchable(
-                                  icon: Icon(
-                                    FeatherIcons.thumbs_up,
-                                    size: 20,
-                                  ),
-                                  child: Text(
-                                    'Like',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                              ),
-                              Align(
-                                alignment: Alignment.center,
-                                child: Touchable(
-                                  icon: Icon(
-                                    FeatherIcons.message_square,
-                                    size: 20,
-                                  ),
-                                  child: Text(
-                                    'Comment',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                  ),
+                                child: Row(
+                                  children: <Widget>[
+                                    Icon(
+                                      FeatherIcons.package,
+                                      size: 16,
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 5),
+                                      child: Text('496'),
+                                    ),
+                                  ],
                                 ),
                               ),
                               Align(
                                 alignment: Alignment.centerRight,
-                                child: Touchable(
-                                  icon: Icon(
-                                    FeatherIcons.share,
-                                    size: 20,
-                                  ),
-                                  child: Text(
-                                    'Share',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
+                                child: Container(
+                                  child: Row(
+                                    children: <Widget>[
+                                      Text('52 comments'),
+                                      Text('-'),
+                                      Text('18 shared'),
+                                    ],
                                   ),
                                 ),
-                              )
+                              ),
                             ],
                           ),
-                        ),
-                      ],
+                          Divider(),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 25, right: 25),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Touchable(
+                                    icon: Icon(
+                                      FeatherIcons.thumbs_up,
+                                      size: 20,
+                                    ),
+                                    child: Text(
+                                      'Like',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                ),
+                                Align(
+                                  alignment: Alignment.center,
+                                  child: Touchable(
+                                    icon: Icon(
+                                      FeatherIcons.message_square,
+                                      size: 20,
+                                    ),
+                                    child: Text(
+                                      'Comment',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                ),
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Touchable(
+                                    icon: Icon(
+                                      FeatherIcons.share,
+                                      size: 20,
+                                    ),
+                                    child: Text(
+                                      'Share',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                   //
@@ -444,7 +453,7 @@ class _CommentPageState extends State<CommentPage> {
                     padding: const EdgeInsets.only(left: 40.0, right: 40),
                     child: CustomTextInput(
                       borderRadius: 5,
-                      iconName: FeatherIcons.mail,
+                      prefixIcon: FeatherIcons.mail,
                       hint: "Email",
                     ),
                   ),
@@ -491,8 +500,11 @@ class _CommentPageState extends State<CommentPage> {
                           color: Constants.colors.primary,
                         )
                       : Container(),
+
+                  //network cache image
+                  
                   SizedBox(
-                    height: 20,
+                    height: 100,
                   )
                 ],
               ),

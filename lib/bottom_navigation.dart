@@ -1,15 +1,12 @@
 //packages
 import 'package:flutter/material.dart';
 import 'package:flutter_product/drawer.dart';
-import 'package:flutter_product/pages/home.dart';
+import 'package:flutter_product/pages/home/home.dart';
 import 'package:flutter_product/scoped-models/main.dart';
 import 'package:flutter_product/utils/constants.dart';
-import 'package:flutter_product/utils/localization/app_translations.dart';
 import 'package:flutter_product/widgets/activity_indicator.dart';
-import 'package:flutter_product/widgets/appbar.dart';
 import 'package:scoped_model/scoped_model.dart';
 import './utils/icon_font.dart';
-import './pages/post.dart';
 import './pages/comment.dart';
 import './pages/message.dart';
 
@@ -29,7 +26,7 @@ class NavigationIconView {
         item = BottomNavigationBarItem(
           icon: icon,
           activeIcon: activeIcon,
-          title: Text(title),
+          title: Container(),
           backgroundColor: color,
         ),
         controller = AnimationController(
@@ -75,7 +72,7 @@ class NavigationIconView {
             size: 120.0,
           ),
           child: Semantics(
-            label: 'Placeholder for $_title tab',
+            // label: 'Placeholder for $_title tab',
             child: _icon,
           ),
         ),
@@ -179,7 +176,9 @@ class _TabNavigatorState extends State<TabNavigator>
             .isLoading;
     return ActivityIndicatorOverlay(
       inAsyncCall: isLoading,
-      progressIndicator: ActivityIndicator(color: Constants.colors.primary,),
+      progressIndicator: ActivityIndicator(
+        color: Constants.colors.primary,
+      ),
       child: Scaffold(
         key: scaffoldKey,
         appBar: buildAppBar(),
@@ -201,6 +200,19 @@ class _TabNavigatorState extends State<TabNavigator>
           ],
         ),
         bottomNavigationBar: botNavBar(),
+        // bottomNavigationBar:
+        //     BottomNavigationDotBar(// Usar -> "BottomNavigationDotBar"
+        //         items: <BottomNavigationDotBarItem>[
+        //   BottomNavigationDotBarItem(icon: Icons.alarm_add, onTap: () {
+        //     onNavigationIconViewTab(0, _navigationViews[0]._key);
+        //   }),
+        //   BottomNavigationDotBarItem(icon: Icons.alarm_add, onTap: () {
+        //     onNavigationIconViewTab(1, _navigationViews[1]._key);
+        //   }),
+        //   BottomNavigationDotBarItem(icon: Icons.alarm_add, onTap: () {
+        //     onNavigationIconViewTab(2, _navigationViews[2]._key);
+        //   }),
+        // ]),
       ),
     );
   }

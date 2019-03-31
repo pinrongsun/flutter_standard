@@ -34,40 +34,54 @@ class CustomDrawerState extends State<CustomDrawer> {
               Column(
                 children: <Widget>[
                   SizedBox.fromSize(
-                    size: Size.fromHeight(170),
+                    size: Size.fromHeight(140),
                     // width: 3000,
                     // color: Colors.blue,
-                    child: Image(
-                      image: AssetImage(Constants.images.food),
-                      fit: BoxFit.cover,
+                    child: Padding(
+                      padding:
+                          const EdgeInsets.only(top: 28, right: 10.0, left: 10),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(13.0),
+                        child: Image(
+                          image: AssetImage(Constants.images.food),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
                     ),
                   ),
                 ],
               ),
               Container(
                 alignment: Alignment.topCenter,
-                padding: EdgeInsets.only(
-                  top: 120,
-                  right: 20.0,
-                  left: 20.0,
+                margin: EdgeInsets.only(
+                  top: 100,
+                ),
+                padding: EdgeInsets.all(4.0),
+                decoration: BoxDecoration(
+                  color: Colors.white, // border color
+                  shape: BoxShape.circle,
+                  boxShadow: [
+                    BoxShadow(
+                      blurRadius: 0.1,
+                    )
+                  ],
                 ),
                 child: CircleAvatar(
-                  maxRadius: 40,
+                  maxRadius: 35,
+                  backgroundColor: Colors.white,
                   backgroundImage: AssetImage(currentProfilePic),
                 ),
               ),
               Container(
                 alignment: Alignment.topCenter,
-                padding: EdgeInsets.only(
-                  top: 210,
-                  right: 20.0,
-                  left: 20.0,
+                margin: EdgeInsets.only(
+                  top: 185,
                 ),
                 child: Column(
                   children: <Widget>[
                     Text(
-                      'Narong Unfake Real Zin',
-                      style: TextStyle(fontSize: Constants.fontSizes.title),
+                      'Ayvee Verzonilla',
+                      style: TextStyle(fontSize: Constants.fontSizes.title, fontWeight: FontWeight.bold),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 8.0),
@@ -122,7 +136,7 @@ class CustomDrawerState extends State<CustomDrawer> {
                   child: Icon(
                     icon,
                     color: selected ? Constants.colors.primary : Colors.black,
-                    size: Constants.fontSizes.heading2,
+                    // size: Constants.fontSizes.heading2,
                   ),
                 ),
                 SizedBox(

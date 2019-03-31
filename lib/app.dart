@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_product/bottom_navigation.dart';
 import 'package:flutter_product/pages/other/not_found.dart';
+import 'package:flutter_product/pages/post/post_detail.dart';
 import 'package:flutter_product/utils/constants.dart';
 import 'package:flutter_product/widgets/app_builder.dart';
 import 'package:scoped_model/scoped_model.dart';
@@ -12,7 +13,6 @@ import './utils/localization/app_localizations.dart'
         MyLocalizationsDelegate,
         Translate;
 import './pages/auth.dart';
-import './pages/home.dart';
 import './scoped-models/main.dart';
 import 'blocs/stories_provider.dart';
 import 'blocs/comments_provider.dart';
@@ -34,6 +34,7 @@ class _MyAppState extends State<MyApp> {
   bool _isAuthenticated = false;
   final supportedLocales = languages.map((language) => Locale(language, ''));
   ThemeData get themeData {
+    double lineHeight = _model.locale == 'km' ? 0.9 : 1;
     return ThemeData(
       splashFactory: InkRipple.splashFactory,
       brightness: Brightness.light,
@@ -53,21 +54,87 @@ class _MyAppState extends State<MyApp> {
           textTheme: ButtonTextTheme.primary,
           buttonColor: Constants.colors.primary),
       textTheme: TextTheme(
-        button: TextStyle(fontSize: Constants.fontSizes.text,),
-        subhead: TextStyle(height: _model.locale == 'km' ? 0.8 : 1),
-        headline: TextStyle(color: Colors.red),
-        subtitle: TextStyle(color: Colors.red),
-        overline: TextStyle(color: Colors.blue),
+        button: TextStyle(
+          height: lineHeight,
+          fontSize: _model.locale == 'km'
+              ? Constants.fontSizes.button - 1
+              : Constants.fontSizes.button,
+        ),
+        display1: TextStyle(
+          height: _model.locale == 'km' ? 0.9 : 1,
+          fontSize: _model.locale == 'km'
+              ? Constants.fontSizes.display1 - 1
+              : Constants.fontSizes.display1,
+        ),
+        display2: TextStyle(
+          height: lineHeight,
+          fontSize: _model.locale == 'km'
+              ? Constants.fontSizes.display2 - 1
+              : Constants.fontSizes.display2,
+        ),
+        display3: TextStyle(
+          height: lineHeight,
+          fontSize: _model.locale == 'km'
+              ? Constants.fontSizes.display3 - 1
+              : Constants.fontSizes.display3,
+        ),
+        display4: TextStyle(
+          height: lineHeight,
+          fontSize: _model.locale == 'km'
+              ? Constants.fontSizes.display4 - 1
+              : Constants.fontSizes.display4,
+        ),
+        caption: TextStyle(
+          height: lineHeight,
+          fontSize: _model.locale == 'km'
+              ? Constants.fontSizes.caption - 1
+              : Constants.fontSizes.caption,
+        ),
+        subhead: TextStyle(
+          height: lineHeight,
+          fontSize: _model.locale == 'km'
+              ? Constants.fontSizes.subhead - 1
+              : Constants.fontSizes.subhead,
+        ),
+        headline: TextStyle(
+          height: lineHeight,
+          fontSize: _model.locale == 'km'
+              ? Constants.fontSizes.headline - 1
+              : Constants.fontSizes.headline,
+          color: Colors.red,
+        ),
+        subtitle: TextStyle(
+          height: lineHeight,
+          fontSize: _model.locale == 'km'
+              ? Constants.fontSizes.subtitle - 1
+              : Constants.fontSizes.subtitle,
+          color: Colors.red,
+        ),
+        overline: TextStyle(
+          height: lineHeight,
+          fontSize: _model.locale == 'km'
+              ? Constants.fontSizes.overline - 1
+              : Constants.fontSizes.overline,
+          color: Colors.blue,
+        ),
         title: TextStyle(
-            fontSize: Constants.fontSizes.title,
-            height: _model.locale == 'km' ? 0.8 : 1),
+          height: lineHeight,
+          fontSize: _model.locale == 'km'
+              ? Constants.fontSizes.title - 1
+              : Constants.fontSizes.title,
+        ),
         body1: TextStyle(
-          fontSize: Constants.fontSizes.text,
-          height: _model.locale == 'km' ? 0.8 : 1,
+          height: lineHeight,
+          fontSize: _model.locale == 'km'
+              ? Constants.fontSizes.body1 - 1
+              : Constants.fontSizes.body1,
         ),
         body2: TextStyle(
-            fontSize: Constants.fontSizes.text,
-            height: _model.locale == 'km' ? 0.8 : 1),
+          height: lineHeight,
+          fontSize: _model.locale == 'km'
+              ? Constants.fontSizes.body2 - 1
+              : Constants.fontSizes.body2,
+        ),
       ),
     );
   }
@@ -118,7 +185,7 @@ class _MyAppState extends State<MyApp> {
   routes(isAuthenticated) {
     return {
       Constants.routes.root: (BuildContext context) =>
-          !isAuthenticated ? AuthPage() : TabNavigator()
+          !isAuthenticated ? AuthPage() : TabNavigator(),
     };
   }
 

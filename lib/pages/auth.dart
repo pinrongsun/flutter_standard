@@ -79,7 +79,7 @@ class _AuthPageState extends State<AuthPage> {
                             child: Text(
                               'Sign In',
                               style: TextStyle(
-                                  fontSize: Constants.fontSizes.heading1),
+                                  fontSize: Constants.fontSizes.display1),
                             ),
                             padding: EdgeInsets.only(bottom: 50),
                           ),
